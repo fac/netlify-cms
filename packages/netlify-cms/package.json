@@ -1,5 +1,5 @@
 {
-  "name": "fac/netlify-cms",
+  "name": "fac-netlify-cms",
   "description": "An extensible, open source, Git-based, React CMS for static sites.",
   "version": "2.1.3",
   "homepage": "https://www.netlifycms.org",
