@@ -2,10 +2,10 @@ export function getPhrases() {
   return {
     app: {
       header: {
-        content: 'Contents',
-        workflow: 'Workflow',
-        media: 'Media',
-        quickAdd: 'Quick add',
+        content: 'CONTENTS',
+        workflow: 'WORKFLOW',
+        media: 'MEDIA',
+        quickAdd: 'QUICK ADD',
       },
       app: {
         errorHeader: 'Error loading the CMS configuration',
