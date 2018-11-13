@@ -424,6 +424,8 @@ export default class API {
            * If an asset store is in use, assets are always accessible, so we
            * can just finish the persist operation here.
            */
+
+          // REMOVE THIS IF?? 
           if (options.hasAssetStore) {
             return this.storeMetadata(contentKey, updatedMetadata).then(() =>
               this.patchBranch(branchName, newHead.sha),

@@ -5,7 +5,7 @@ export function getPhrases() {
         content: 'Contents',
         workflow: 'Workflow',
         media: 'Media',
-        quickAdd: 'Quick add',
+        quickAdd: 'HELLO',
       },
       app: {
         errorHeader: 'Error loading the CMS configuration',
