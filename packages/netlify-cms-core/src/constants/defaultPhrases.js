@@ -73,7 +73,7 @@ export function getPhrases() {
         setStatus: 'Set status',
         backCollection: ' Writing in %{collectionLabel} collection',
         unsavedChanges: 'Unsaved Changes',
-        changesSaved: 'Changes saved',
+        changesSaved: 'HELLO WORLD',
         draft: 'Draft',
         inReview: 'In review',
         ready: 'Ready',
