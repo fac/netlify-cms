@@ -424,6 +424,7 @@ export default class API {
            * If an asset store is in use, assets are always accessible, so we
            * can just finish the persist operation here.
            */
+          console.log("IN GIT CODE....TRYING TO MAKE A BRANCH");
           if (options.hasAssetStore) {
             return this.storeMetadata(contentKey, updatedMetadata).then(() =>
               this.patchBranch(branchName, newHead.sha),

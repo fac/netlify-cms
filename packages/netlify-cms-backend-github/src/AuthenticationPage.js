@@ -44,6 +44,7 @@ export default class GitHubAuthenticationPage extends React.Component {
   };
 
   render() {
+    console.log("LOGGING IN");
     const { inProgress, config } = this.props;
     return (
       <AuthenticationPage
