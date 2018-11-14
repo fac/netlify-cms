@@ -6,7 +6,7 @@ import { selectIntegration } from 'Reducers';
 import { getIntegrationProvider } from 'Integrations';
 import { addAsset } from './media';
 import { sanitizeSlug, slugFormatter } from 'Lib/urlHelper';
-import { EDITORIAL_WORKFLOW } from "Contents/publishModes";
+import { EDITORIAL_WORKFLOW } from "Constants/publishModes";
 
 const { notifSend } = notifActions;
 
