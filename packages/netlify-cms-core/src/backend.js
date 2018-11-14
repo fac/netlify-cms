@@ -434,7 +434,7 @@ class Backend {
     return this.implementation.persistEntry(entryObj, MediaFiles, opts).then(() => entryObj.slug);
   }
 
-  persistMedia(config, file) {
+  persistMedia(config, file, options) {
     const modifiedOptions = {
       commitMessage: commitMessageFormatter('uploadMedia', config, { path: file.path }), // Can be overwritten by options
       ...options,
