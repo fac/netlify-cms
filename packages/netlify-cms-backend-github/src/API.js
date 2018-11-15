@@ -319,13 +319,19 @@ export default class API {
 
     const fileTree = this.composeFileTree(files);
 
+    console.log("--- IN backend-github persistFiles ---");
+    console.log("options are: ");
+    console.log(options);
+
     return Promise.all(uploadPromises).then(() => {
-      if (!options.useWorkflow) {
+      if (!options.useWorkflow && !options.isMediaOnlyPR) {
+        console.log("options use workflow false")
         return this.getBranch()
           .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
           .then(changeTree => this.commit(options.commitMessage, changeTree))
           .then(response => this.patchBranch(this.branch, response.sha));
       } else {
+        console.log("options use workflow true")
         const mediaFilesList = mediaFiles.map(file => ({ path: file.path, sha: file.sha }));
         return this.editorialWorkflowGit(fileTree, entry, mediaFilesList, options);
       }
@@ -360,10 +366,15 @@ export default class API {
   }
 
   async editorialWorkflowGit(fileTree, entry, filesList, options) {
+    console.log("--- IN backend-github editorialWorkflowGit ---");
+
     const contentKey = (entry && entry.slug) || options.slug;
     const branchName = this.generateBranchName(contentKey);
     const metadata = await this.retrieveMetadata(contentKey);
     const unpublished = options.unpublished || (metadata && !!metadata.isMediaOnlyPR) ||false; // Check if the meta is from a media only PR
+    console.log("unpublished = ");
+    console.log(unpublished);
+
     if (!unpublished) {
       // Open new editorial review workflow for this entry - Create new metadata and commit to new branch`
       let prResponse;
