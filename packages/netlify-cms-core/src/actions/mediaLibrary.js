@@ -149,8 +149,8 @@ export function persistMedia(file, opts = {}) {
     if (publishMode === EDITORIAL_WORKFLOW && entryDraft.getIn(["entry", "data", "title"])) {
       const collectionName = state.entryDraft.getIn(['entry', 'collection']);
       const collection = state.collections.get(collectionName);
-      const collectionLabel = collection.get('label');
-      const slug = slugFormatter(collection.get("slug"), entryDraft.getIn(["entry", "data"]), config.get("slug"));
+      const collectionLabel = "draft";
+      const slug = "add-new-image";
        const parsedData = {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
