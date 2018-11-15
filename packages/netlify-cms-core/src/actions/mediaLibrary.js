@@ -128,6 +128,7 @@ export function loadMedia(opts = {}) {
 }
 
 export function persistMedia(file, opts = {}) {
+  console.log("--- IN CORE mediaLibrary persistMedia---");
   const { privateUpload } = opts;
   return async (dispatch, getState) => {
     const state = getState();
@@ -147,6 +148,7 @@ export function persistMedia(file, opts = {}) {
 
     // If in Editorial workflow and there is something in a draft entry (means uploaded from draft page)
     if (publishMode === EDITORIAL_WORKFLOW && entryDraft.getIn(["entry", "data", "title"])) {
+      console.log("--- publish Mode editorial workflow---");
       const collectionName = state.entryDraft.getIn(['entry', 'collection']);
       const collection = state.collections.get(collectionName);
       const collectionLabel = "draft";
@@ -155,7 +157,7 @@ export function persistMedia(file, opts = {}) {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
       };
-       options.PRName = `Create ${collectionLabel} "${slug}"`;
+      options.PRName = `Create ${collectionLabel} "${slug}"`;
       options.slug = slug;
       options.collectionName = collectionName;
       options.parsedData = parsedData;
@@ -176,12 +178,17 @@ export function persistMedia(file, opts = {}) {
       }
     }
 
+    console.log("dispatch media persisting");
     dispatch(mediaPersisting());
 
     try {
       const assetProxy = await createAssetProxy(fileName, file, false, privateUpload);
       dispatch(addAsset(assetProxy));
       if (!integration) {
+        console.log("calling backend persist media");
+        console.log("backend is: ");
+        console.log(backend);
+
         const asset = await backend.persistMedia(state.config, assetProxy, options);
         return dispatch(mediaPersisted(asset));
       }
