@@ -22,7 +22,7 @@ const baseConfig = {
     }),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
-        messages: ['Netlify CMS is now running at http://localhost:8080'],
+        messages: ['Netlify CMS is now running at http://localhost:8090'],
       },
     }),
     new CopyWebpackPlugin([{ from: '../shims/cms.css', to: 'dist/' }]),
@@ -32,7 +32,7 @@ const baseConfig = {
     watchContentBase: true,
     quiet: true,
     host: 'localhost',
-    port: 8080,
+    port: 8090,
   },
 };
 

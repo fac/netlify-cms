@@ -7,6 +7,7 @@ import { getIntegrationProvider } from 'Integrations';
 import { addAsset } from './media';
 import { sanitizeSlug, slugFormatter } from 'Lib/urlHelper';
 import { EDITORIAL_WORKFLOW } from "Constants/publishModes";
+import { addBranchToDraft } from './entries';
 
 const { notifSend } = notifActions;
 
@@ -151,17 +152,20 @@ export function persistMedia(file, opts = {}) {
       console.log("--- publish Mode editorial workflow---");
       const collectionName = state.entryDraft.getIn(['entry', 'collection']);
       const collection = state.collections.get(collectionName);
-      const collectionLabel = "draft";
-      const slug = "add-new-image";
-       const parsedData = {
+      const collectionLabel = collection.get('label');
+
+      const slug = slugFormatter(collection.get("slug"), entryDraft.getIn(["entry", "data"]), config.get("slug"));
+      const parsedData = {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
       };
-      options.PRName = `Create ${collectionLabel} "${slug}"`;
+      //options.PRName = `Create ${collectionLabel} "${slug}"`;
       options.slug = slug;
       options.collectionName = collectionName;
       options.parsedData = parsedData;
       options.isMediaOnlyPR = true;
+
+      dispatch(addBranchToDraft(slug));
     }
 
     /**

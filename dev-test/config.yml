@@ -1,5 +1,7 @@
 backend:
-  name: test-repo
+  name: github
+  repo: fac/website
+  branch: netlify-with-npm
 
 display_url: https://example.com
 

@@ -9,6 +9,7 @@ import {
   ENTRY_PERSIST_SUCCESS,
   ENTRY_PERSIST_FAILURE,
   ENTRY_DELETE_SUCCESS,
+  DRAFT_ADD_BRANCH_NAME,
 } from 'Actions/entries';
 import {
   UNPUBLISHED_ENTRY_PERSIST_REQUEST,
@@ -101,6 +102,8 @@ const entryDraftReducer = (state = Map(), action) => {
     case REMOVE_ASSET:
       return state.update('mediaFiles', list => list.filterNot(path => path === action.payload));
 
+    case DRAFT_ADD_BRANCH_NAME: 
+      return state.setIn(['entry', 'branchName'], action.payload.branchName);
     default:
       return state;
   }

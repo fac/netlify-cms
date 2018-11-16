@@ -29,6 +29,7 @@ export const DRAFT_DISCARD = 'DRAFT_DISCARD';
 export const DRAFT_CHANGE = 'DRAFT_CHANGE';
 export const DRAFT_CHANGE_FIELD = 'DRAFT_CHANGE_FIELD';
 export const DRAFT_VALIDATION_ERRORS = 'DRAFT_VALIDATION_ERRORS';
+export const DRAFT_ADD_BRANCH_NAME = 'DRAFT_ADD_BRANCH_NAME';
 
 export const ENTRY_PERSIST_REQUEST = 'ENTRY_PERSIST_REQUEST';
 export const ENTRY_PERSIST_SUCCESS = 'ENTRY_PERSIST_SUCCESS';
@@ -212,6 +213,13 @@ export function changeDraftFieldValidation(field, errors) {
   return {
     type: DRAFT_VALIDATION_ERRORS,
     payload: { field, errors },
+  };
+}
+
+export function addBranchToDraft(branchName) {
+  return {
+    type: DRAFT_ADD_BRANCH_NAME,
+    payload: { branchName },
   };
 }
 
