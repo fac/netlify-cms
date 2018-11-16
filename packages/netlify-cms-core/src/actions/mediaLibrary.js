@@ -164,6 +164,7 @@ export function persistMedia(file, opts = {}) {
       options.collectionName = collectionName;
       options.parsedData = parsedData;
       options.isMediaOnlyPR = true;
+      options.branchName = entryDraft.getIn(["entry", "branchName"]) || slug;
 
       dispatch(addBranchToDraft(slug));
     }

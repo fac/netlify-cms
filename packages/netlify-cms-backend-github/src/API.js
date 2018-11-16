@@ -324,14 +324,14 @@ export default class API {
     console.log(options);
 
     return Promise.all(uploadPromises).then(() => {
-      if (!options.useWorkflow && !options.isMediaOnlyPR) {
-        console.log("options use workflow false")
+      const branchName = this.branch || this.generateBranchName(options.branchName);
+
+      if (!options.useWorkflow || options.isMediaOnlyPR) {
         return this.getBranch()
           .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
           .then(changeTree => this.commit(options.commitMessage, changeTree))
-          .then(response => this.patchBranch(this.branch, response.sha));
+          .then(response => this.patchBranch(branchName, response.sha));
       } else {
-        console.log("options use workflow true")
         const mediaFilesList = mediaFiles.map(file => ({ path: file.path, sha: file.sha }));
         return this.editorialWorkflowGit(fileTree, entry, mediaFilesList, options);
       }
