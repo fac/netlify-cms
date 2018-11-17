@@ -137,7 +137,7 @@ export function persistMedia(file, opts = {}) {
     const fileName = sanitizeSlug(file.name.toLowerCase(), state.config.get('slug'));
     const existingFile = files.find(existingFile => existingFile.name.toLowerCase() === fileName);
 
-          const entryDraft = state.entryDraft;
+    const entryDraft = state.entryDraft;
     const config = state.config;
     const publishMode = state.config.get('publish_mode');
     const options = {
@@ -147,10 +147,15 @@ export function persistMedia(file, opts = {}) {
      // If in Editorial workflow and there is something in a draft entry (means uploaded from draft page)
     if (publishMode === EDITORIAL_WORKFLOW && entryDraft.getIn(["entry", "data", "title"])) {
       const collectionName = state.entryDraft.getIn(['entry', 'collection']);
+      console.log("state.entryDraft is " + state.entryDraft);
+      console.log("collectionName is " + collectionName);
       const collection = state.collections.get(collectionName);
+      console.log("collecton is " + collection);
+      // collection is there when you add an image for the first time but not second image
       const collectionLabel = collection.get('label');
       const slug = slugFormatter(collection.get("slug"), entryDraft.getIn(["entry", "data"]), config.get("slug"));
-       const parsedData = {
+      console.log("slug is " + slug);
+      const parsedData = {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
       };

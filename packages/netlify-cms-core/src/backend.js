@@ -435,6 +435,8 @@ class Backend {
   }
 
   persistMedia(config, file, options) {
+    console.log("in backend persist media");
+    console.log("options are " + options);
     const modifiedOptions = {
       commitMessage: commitMessageFormatter('uploadMedia', config, { path: file.path }),
       ...options,

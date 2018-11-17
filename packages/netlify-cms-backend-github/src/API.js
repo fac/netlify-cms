@@ -307,8 +307,11 @@ export default class API {
   }
 
   persistFiles(entry, mediaFiles, options) {
+    console.log("in API persist files");
+    console.log("entry is " + entry);
+    console.log("mediaFiles is " + mediaFiles);
     const uploadPromises = [];
-    const files = entry ? mediaFiles.concat(entry) : mediaFiles;
+    const files = entry && entry.path ? mediaFiles.concat(entry) : mediaFiles;
 
     files.forEach(file => {
       if (file.uploaded) {
@@ -321,11 +324,13 @@ export default class API {
 
     return Promise.all(uploadPromises).then(() => {
       if (!options.useWorkflow) {
+        console.log("in !options.useWorkflow");
         return this.getBranch()
           .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
           .then(changeTree => this.commit(options.commitMessage, changeTree))
           .then(response => this.patchBranch(this.branch, response.sha));
       } else {
+        console.log("not in !options.useWorkflow");
         const mediaFilesList = mediaFiles.map(file => ({ path: file.path, sha: file.sha }));
         return this.editorialWorkflowGit(fileTree, entry, mediaFilesList, options);
       }
@@ -359,11 +364,18 @@ export default class API {
     });
   }
 
-   async editorialWorkflowGit(fileTree, entry, filesList, options) {
+  async editorialWorkflowGit(fileTree, entry, filesList, options) {
+    console.log("in editorialWorkflowGit");
+    console.log("entry is " + entry);
+    console.log("options are " + options);
+    console.log("filesList is " + filesList);
     const contentKey = (entry && entry.slug) || options.slug;
+    console.log("contentKey is " + contentKey);
     const branchName = this.generateBranchName(contentKey);
+    console.log("branchName is " + branchName);
     const metadata = await this.retrieveMetadata(contentKey);
     const unpublished = options.unpublished || (metadata && !!metadata.isMediaOnlyPR) || false; // Check if the meta is from a media only PR
+    console.log("unpublished is " + unpublished);
     if (!unpublished) {
       // Open new editorial review workflow for this entry - Create new metadata and commit to new branch`
       let prResponse;

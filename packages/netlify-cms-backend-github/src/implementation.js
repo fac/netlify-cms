@@ -146,6 +146,8 @@ export default class GitHub {
   }
 
   async persistMedia(mediaFile, options = {}) {
+    console.log("in github implementation persistMedia");
+    console.log("options are " + options);
     try {
       await this.api.persistFiles(null, [mediaFile], options);
 
