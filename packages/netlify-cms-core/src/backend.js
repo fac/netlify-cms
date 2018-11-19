@@ -36,8 +36,7 @@ class LocalStorageAuthStore {
   }
 }
 
-const slugFormatter = (collection, entryData, slugConfig) => {
-  const template = collection.get('slug') || '{{slug}}';
+const slugFormatter = (template, entryData, slugConfig) => {
   const date = new Date();
 
   const identifier = entryData.get(selectIdentifier(collection));

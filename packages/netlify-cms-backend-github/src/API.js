@@ -324,14 +324,21 @@ export default class API {
     console.log(options);
 
     return Promise.all(uploadPromises).then(() => {
-      const branchName = this.branch || this.generateBranchName(options.branchName);
-
-      if (!options.useWorkflow || options.isMediaOnlyPR) {
+      if (options.useWorkflow === false) {
+        console.log("use workflow is false");
         return this.getBranch()
           .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
           .then(changeTree => this.commit(options.commitMessage, changeTree))
-          .then(response => this.patchBranch(branchName, response.sha));
-      } else {
+          .then(response => this.patchBranch(branchName || this.branch, response.sha));
+      } else if (options.isMediaOnlyPR) {
+          console.log("CREATING A NEW BRANCH - " + options.branchName);
+          const branchName = this.generateBranchName(options.branchName);
+
+          return this.getBranch()
+                  .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
+                  .then(changeTree => this.commit(options.commitMessage, changeTree))
+                  .then(commitResponse => this.createBranch(branchName, commitResponse.sha));
+      } else {  
         const mediaFilesList = mediaFiles.map(file => ({ path: file.path, sha: file.sha }));
         return this.editorialWorkflowGit(fileTree, entry, mediaFilesList, options);
       }
@@ -371,7 +378,7 @@ export default class API {
     const contentKey = (entry && entry.slug) || options.slug;
     const branchName = this.generateBranchName(contentKey);
     const metadata = await this.retrieveMetadata(contentKey);
-    const unpublished = options.unpublished || (metadata && !!metadata.isMediaOnlyPR) ||false; // Check if the meta is from a media only PR
+    const unpublished = options.unpublished || (metadata && !!metadata.isMediaOnlyPR)|| false; // Check if the meta is from a media only PR
     console.log("unpublished = ");
     console.log(unpublished);
 

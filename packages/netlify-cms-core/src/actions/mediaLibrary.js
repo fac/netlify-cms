@@ -154,7 +154,7 @@ export function persistMedia(file, opts = {}) {
       const collection = state.collections.get(collectionName);
       const collectionSlug = (collection && collection.get("slug")) || "{{slug}}";
 
-      const slug = slugFormatter(, entryDraft.getIn(["entry", "data"]), config.get("slug"));
+      const slug = slugFormatter(collectionSlug, entryDraft.getIn(["entry", "data"]), config.get("slug"));
       const parsedData = {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
