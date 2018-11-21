@@ -382,7 +382,7 @@ export default class API {
     if ( !!entry ) {
       unpublished = options.unpublished || !!metadata || false;
     } else {
-      unpublished = !options.newMediaPR;
+      unpublished = options.newMediaPR == false; // in case newMediaPR is undefined or true we want unpublished to be false
     }
     console.log("options.newMediaPR is " + options.newMediaPR);
     console.log("options.unpublished is " + options.unpublished);
