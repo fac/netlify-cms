@@ -370,14 +370,23 @@ export default class API {
     console.log("in editorialWorkflowGit");
     console.log("entry is " + entry);
     console.log("options are " + options);
+    console.log("options.newMediaPR " + options.newMediaPR);
     console.log("filesList is " + filesList);
-    console.log("is media only PR " + options.isMediaOnlyPR);
+    console.log("is media only PR " + options.newMediaPR);
     const contentKey = (entry && entry.slug) || options.slug;
     console.log("contentKey is " + contentKey);
     const branchName = this.generateBranchName(contentKey);
     console.log("branchName is " + branchName);
     const metadata = await this.retrieveMetadata(contentKey);
-    const unpublished = options.unpublished || (metadata && !!metadata.isMediaOnlyPR) || false; // Check if the meta is from a media only PR
+    let unpublished;
+    if ( !!entry ) {
+      unpublished = options.unpublished || !!metadata || false;
+    } else {
+      unpublished = !options.newMediaPR;
+    }
+    console.log("options.newMediaPR is " + options.newMediaPR);
+    console.log("options.unpublished is " + options.unpublished);
+    console.log("metadata is " + metadata);
     console.log("unpublished is " + unpublished);
     if (!unpublished) {
       // Open new editorial review workflow for this entry - Create new metadata and commit to new branch`
@@ -415,7 +424,7 @@ export default class API {
               files: filesList,
             },
             timeStamp: new Date().toISOString(),
-            isMediaOnlyPR: options.isMediaOnlyPR || false,
+            newMediaPR: options.newMediaPR || false,
           });
         });
     } else {
@@ -442,8 +451,8 @@ export default class API {
               },
             files: uniq(files),
           };
-          const isMediaOnlyPR = options.isMediaOnlyPR || false;
-          const updatedMetadata = { ...metadata, pr, title, description, objects, isMediaOnlyPR };
+          const newMediaPR = options.newMediaPR || false;
+          const updatedMetadata = { ...metadata, pr, title, description, objects, newMediaPR };
 
           /**
            * If an asset store is in use, assets are always accessible, so we

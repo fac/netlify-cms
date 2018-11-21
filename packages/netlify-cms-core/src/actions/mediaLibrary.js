@@ -169,11 +169,12 @@ export function persistMedia(file, opts = {}) {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
       };
-      options.PRName = `Upload "${slug}"`;
+      options.PRName = `Upload "${slug}" to "${collectionName}" entry`;
       options.slug = slug;
       options.collectionName = collectionName;
       options.parsedData = parsedData;
-      options.isMediaOnlyPR = collectionName !== "draft";
+      options.newMediaPR = (( collectionName !== "draft") && (state.entryDraft.get("mediaFiles").size == 0));
+      console.log("options.newMediaPR " + options.newMediaPR);
     }
     /**
      * Check for existing files of the same name before persisting. If no asset
