@@ -3227,6 +3227,7 @@ common-tags@1.4.0:
 common-tags@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.8.0.tgz#8e3153e542d4a39e9b10554434afaaf98956a937"
+  integrity sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -5113,6 +5114,7 @@ follow-redirects@^1.0.0:
 for-each@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
+  integrity sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==
   dependencies:
     is-callable "^1.1.3"
 
@@ -8242,6 +8244,69 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
   integrity sha512-3KL3fvuRkZ7s4IFOMfztb7zJp3QaVWnBeGoJlgB38XnCRPj/0tLzzLG5IB8NYOHbJ8g8UGrgZv44GLDk6CxTxA==
 
+"netlify-cms-backend-github@git+ssh://git@github.com/fac/netlify-cms.git#netlify-cms-backend-github-v2.0.21-gitpkg":
+  version "2.0.21"
+  resolved "git+ssh://git@github.com/fac/netlify-cms.git#78fc093640b3760e8c2dc0976c4d1e5cdbfaa5bd"
+  dependencies:
+    common-tags "^1.8.0"
+    js-base64 "^2.4.8"
+    semaphore "^1.1.0"
+
+"netlify-cms-core@git+ssh://git@github.com/fac/netlify-cms.git#netlify-cms-core-v2.1.9-gitpkg":
+  version "2.1.9"
+  resolved "git+ssh://git@github.com/fac/netlify-cms.git#e9d61d647e248ee17e85d6755d6fe244b6aa6589"
+  dependencies:
+    ajv "^6.4.0"
+    ajv-errors "^1.0.0"
+    create-react-class "^15.6.0"
+    diacritics "^1.3.0"
+    emotion "^9.2.6"
+    fuzzy "^0.1.1"
+    gotrue-js "^0.9.15"
+    gray-matter "^3.0.6"
+    history "^4.7.2"
+    immutable "^3.7.6"
+    js-base64 "^2.1.9"
+    js-yaml "^3.10.0"
+    jwt-decode "^2.1.0"
+    lodash "^4.17.10"
+    moment "^2.11.2"
+    netlify-cms-editor-component-image "^2.0.4"
+    netlify-cms-lib-auth "^2.0.4"
+    netlify-cms-lib-util "^2.1.0"
+    netlify-cms-ui-default "^2.0.6"
+    node-polyglot "^2.3.0"
+    prop-types "^15.5.10"
+    react "^16.4.1"
+    react-dnd "^2.5.4"
+    react-dnd-html5-backend "^2.5.4"
+    react-dom "^16.0.0"
+    react-emotion "^9.2.5"
+    react-frame-component "^2.0.0"
+    react-hot-loader "^4.0.0"
+    react-immutable-proptypes "^2.1.0"
+    react-is "16.3.1"
+    react-modal "^3.1.5"
+    react-polyglot "^0.2.6"
+    react-redux "^4.4.0"
+    react-router-dom "^4.2.2"
+    react-router-redux "^5.0.0-alpha.8"
+    react-scroll-sync "^0.6.0"
+    react-sortable-hoc "^0.6.8"
+    react-split-pane "^0.1.82"
+    react-topbar-progress-indicator "^2.0.0"
+    react-waypoint "^7.1.0"
+    redux "^3.3.1"
+    redux-notifications "^4.0.1"
+    redux-optimist "^0.0.2"
+    redux-thunk "^1.0.3"
+    sanitize-filename "^1.6.1"
+    semaphore "^1.0.5"
+    toml-j0.4 "^1.1.1"
+    tomlify-j0.4 "^3.0.0-alpha.0"
+    url "^0.11.0"
+    what-input "^5.0.3"
+
 next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
@@ -8339,6 +8404,7 @@ node-notifier@^5.2.1:
 node-polyglot@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/node-polyglot/-/node-polyglot-2.3.0.tgz#e97cc9354e87e648f04858647c6e3be38ad36ce1"
+  integrity sha512-9cF870GdUW72lCaZiaahS3PyYy3M9pRw+qYx5jMvQMww8VQ3Oz7fIVUtrPpPWtXz1+mC2GAuqmYucXCs/H/VWQ==
   dependencies:
     for-each "^0.3.3"
     has "^1.0.3"
@@ -9727,6 +9793,7 @@ react-onclickoutside@^6.5.0:
 react-polyglot@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/react-polyglot/-/react-polyglot-0.2.6.tgz#5a7065aa82ee00a6d92a9c89447b2cc5b939986c"
+  integrity sha512-/V+kb6Acs/F6EzMZ6MAp6UiJnPSL9BX59hN54bFhJzbpy4tFQTxAZAmpw/mg5pk8giZ2LiiIBc4TMPKrVJNOGw==
   dependencies:
     prop-types "^15.5.8"
 
@@ -11347,6 +11414,7 @@ string.prototype.padend@^3.0.0:
 string.prototype.trim@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/string.prototype.trim/-/string.prototype.trim-1.1.2.tgz#d04de2c89e137f4d7d206f086b5ed2fae6be8cea"
+  integrity sha1-0E3iyJ4Tf019IG8Ia17S+ua+jOo=
   dependencies:
     define-properties "^1.1.2"
     es-abstract "^1.5.0"

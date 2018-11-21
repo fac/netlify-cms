@@ -95,6 +95,7 @@ export default class API {
   }
 
   checkMetadataRef() {
+    console.log("in checkmetadata");
     return this.request(`${this.repoURL}/git/refs/meta/_netlify_cms?${Date.now()}`, {
       cache: 'no-store',
     })
@@ -122,6 +123,7 @@ export default class API {
   }
 
   storeMetadata(key, data) {
+    console.log("in store metadata")
     return this.checkMetadataRef().then(branchData => {
       const fileTree = {
         [`${key}.json`]: {
@@ -323,8 +325,8 @@ export default class API {
     const fileTree = this.composeFileTree(files);
 
     return Promise.all(uploadPromises).then(() => {
-      if (!options.useWorkflow) {
-        console.log("in !options.useWorkflow");
+      if (options.useWorkflow === false) {
+        console.log("in options.useWorkflow === false");
         return this.getBranch()
           .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
           .then(changeTree => this.commit(options.commitMessage, changeTree))
@@ -369,6 +371,7 @@ export default class API {
     console.log("entry is " + entry);
     console.log("options are " + options);
     console.log("filesList is " + filesList);
+    console.log("is media only PR " + options.isMediaOnlyPR);
     const contentKey = (entry && entry.slug) || options.slug;
     console.log("contentKey is " + contentKey);
     const branchName = this.generateBranchName(contentKey);
@@ -379,6 +382,8 @@ export default class API {
     if (!unpublished) {
       // Open new editorial review workflow for this entry - Create new metadata and commit to new branch`
       let prResponse;
+      console.log("starting new editorial workflow for this entry");
+      console.log("entry is " + entry);
 
       return this.getBranch()
         .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
@@ -416,6 +421,8 @@ export default class API {
     } else {
       // Entry is already on editorial review workflow - just update metadata and commit to existing branch
       let newHead;
+      console.log("entry already on editorial review workflow");
+      console.log("branchName is " + branchName);
       return this.getBranch(branchName)
         .then(branchData => this.updateTree(branchData.commit.sha, '/', fileTree))
         .then(changeTree => this.commit(options.commitMessage, changeTree))

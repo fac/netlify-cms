@@ -140,6 +140,7 @@ export function persistMedia(file, opts = {}) {
     const entryDraft = state.entryDraft;
     const config = state.config;
     const publishMode = state.config.get('publish_mode');
+    console.log("publish mode is " + publishMode);
     const options = {
       mode: publishMode,
       slug: `upload_${fileName}`,
@@ -148,22 +149,31 @@ export function persistMedia(file, opts = {}) {
     if (publishMode === EDITORIAL_WORKFLOW && entryDraft.getIn(["entry", "data", "title"])) {
       const collectionName = state.entryDraft.getIn(['entry', 'collection']);
       console.log("state.entryDraft is " + state.entryDraft);
+      let slug;
+      if ((collectionName === "draft") || !!state.entryDraft.get(['entry', 'slug'])) {
+        console.log("in collectionName is draft");
+        slug = state.entryDraft.getIn(["entry", "slug"]);
+        console.log(entryDraft.getIn(["entry", "slug"]));
+        console.log("slug is " + slug);
+      }
+      else {
+        const collection = state.collections.get(collectionName);
+        console.log("collecton is " + collection);
+        // collection is there when you add an image for the first time but not second image
+        const collectionLabel = collection.get('label');
+        slug = slugFormatter(collection.get("slug"), entryDraft.getIn(["entry", "data"]), config.get("slug"));
+      };
       console.log("collectionName is " + collectionName);
-      const collection = state.collections.get(collectionName);
-      console.log("collecton is " + collection);
-      // collection is there when you add an image for the first time but not second image
-      const collectionLabel = collection.get('label');
-      const slug = slugFormatter(collection.get("slug"), entryDraft.getIn(["entry", "data"]), config.get("slug"));
       console.log("slug is " + slug);
       const parsedData = {
         title: entryDraft.getIn(["entry", "data", "title"], "No Title"),
         description: entryDraft.getIn(["entry", "data", "description"], "No Description!"),
       };
-      options.PRName = `Create ${collectionLabel} "${slug}"`;
+      options.PRName = `Upload "${slug}"`;
       options.slug = slug;
       options.collectionName = collectionName;
       options.parsedData = parsedData;
-      options.isMediaOnlyPR = true;
+      options.isMediaOnlyPR = collectionName !== "draft";
     }
     /**
      * Check for existing files of the same name before persisting. If no asset
