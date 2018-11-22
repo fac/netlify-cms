@@ -4,7 +4,7 @@ import { uniq, initial, last, get, find, hasIn, partial, result } from 'lodash';
 import { filterPromises, resolvePromiseProperties } from 'netlify-cms-lib-util';
 import { APIError, EditorialWorkflowError } from 'netlify-cms-lib-util';
 
-const CMS_BRANCH_PREFIX = 'cms/';
+const CMS_BRANCH_PREFIX = 'cms-';
 
 export default class API {
   constructor(config) {
