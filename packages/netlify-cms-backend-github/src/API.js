@@ -377,7 +377,7 @@ export default class API {
       console.dir(metadata);
       console.log("options are: ");
       console.dir(options);
-      unpublished = !!options.unpublished;
+      unpublished = options.unpublished || (metadata && metadata.newMediaPR != undefined) || false;
     } else {
       console.log("in !! entry");
       console.log("entry is: ");
@@ -392,7 +392,8 @@ export default class API {
     }
     console.log("unpublished is " + unpublished);
     if (!unpublished) {
-      // Open new editorial review workflow for this entry - Create new metadata and commit to new branch`
+      // Open new editorial review workflow for this entry - Create new metadata and commit to new branch
+
       let prResponse;
 
       return this.getBranch()
