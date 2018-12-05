@@ -360,15 +360,37 @@ export default class API {
   }
 
   async editorialWorkflowGit(fileTree, entry, filesList, options) {
+    console.log("in editorialWorkflowGit");
+    console.log("entry is: ");
+    console.dir(entry);
+    console.log("options.slug is " + options.slug);
     const contentKey = (entry && entry.slug) || options.slug;
     const branchName = this.generateBranchName(contentKey);
+    console.log("branchName is " + branchName);
     const metadata = await this.retrieveMetadata(contentKey);
     let unpublished;
     if ( !!entry ) {
-      unpublished = options.unpublished || !!metadata || false;
+      console.log("in !! entry");
+      console.log("entry is: ");
+      console.dir(entry);
+      console.log("metadata is: ");
+      console.dir(metadata);
+      console.log("options are: ");
+      console.dir(options);
+      unpublished = !!options.unpublished;
     } else {
+      console.log("in !! entry");
+      console.log("entry is: ");
+      console.dir(entry);
+      console.log("metadata is: ");
+      console.dir(metadata);
+      console.log("options are: ");
+      console.dir(options);
+      console.log("not in !!entry");
+      console.log("newMediaPr is " + options.newMediaPR);
       unpublished = options.newMediaPR == false; // in case newMediaPR is undefined or true we want unpublished to be false
     }
+    console.log("unpublished is " + unpublished);
     if (!unpublished) {
       // Open new editorial review workflow for this entry - Create new metadata and commit to new branch`
       let prResponse;

@@ -148,7 +148,7 @@ export function persistMedia(file, opts = {}) {
     if (publishMode === EDITORIAL_WORKFLOW && entryDraft.getIn(["entry", "data", "title"])) {
       const collectionName = state.entryDraft.getIn(['entry', 'collection']);
       let slug;
-      if ((collectionName === "draft") || !!state.entryDraft.get(['entry', 'slug'])) {
+      if ((collectionName === "draft") || !!state.entryDraft.getIn(['entry', 'slug'])) {
         slug = state.entryDraft.getIn(["entry", "slug"]);
       }
       else {
