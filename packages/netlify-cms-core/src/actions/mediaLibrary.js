@@ -166,7 +166,7 @@ export function persistMedia(file, opts = {}) {
       options.collectionName = collectionName;
       options.parsedData = parsedData;
       options.newMediaPR = (( collectionName !== "draft") && (state.entryDraft.get("mediaFiles").size == 0));
-      options.mediaOnlyPr = ((collectionName !== "draft") && (state.entryDraft.get("mediaFiles").size > 0));
+      options.mediaOnlyPR = ((collectionName !== "draft") && (state.entryDraft.get("mediaFiles").size >= 0));
     }
     /**
      * Check for existing files of the same name before persisting. If no asset

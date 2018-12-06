@@ -210,6 +210,8 @@ export default class GitHub {
   }
 
   unpublishedEntry(collection, slug) {
+    console.log("in implementation unpublishedEntry");
+    console.log("slug is " + slug);
     return this.api.readUnpublishedBranchFile(slug).then(data => {
       if (!data) return null;
       return {

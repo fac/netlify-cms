@@ -4,7 +4,7 @@ import { uniq, initial, last, get, find, hasIn, partial, result } from 'lodash';
 import { filterPromises, resolvePromiseProperties } from 'netlify-cms-lib-util';
 import { APIError, EditorialWorkflowError } from 'netlify-cms-lib-util';
 
-const CMS_BRANCH_PREFIX = 'cms-';
+const CMS_BRANCH_PREFIX = 'cms/';
 
 export default class API {
   constructor(config) {
@@ -122,6 +122,8 @@ export default class API {
   }
 
   storeMetadata(key, data) {
+    console.log("in storeMetadata");
+    console.log("key is " + key);
     return this.checkMetadataRef().then(branchData => {
       const fileTree = {
         [`${key}.json`]: {
@@ -145,6 +147,8 @@ export default class API {
   }
 
   retrieveMetadata(key) {
+    console.log("retrieving metadata")
+    console.log("key is" + key);
     const cache = localForage.getItem(`gh.meta.${key}`);
     return cache.then(cached => {
       if (cached && cached.expires > Date.now()) {
@@ -377,7 +381,10 @@ export default class API {
       console.dir(metadata);
       console.log("options are: ");
       console.dir(options);
-      unpublished = options.unpublished || (metadata && metadata.newMediaPR != undefined) || false;
+      console.log("mediaOnlyPR is " + options.mediaOnlyPR);
+      console.log("newMediaPR is " + options.newMediaPR);
+      unpublished = options.unpublished || (metadata && metadata.mediaOnlyPR) || false;
+      options.mediaOnlyPR = false;
     } else {
       console.log("in !! entry");
       console.log("entry is: ");
@@ -388,6 +395,7 @@ export default class API {
       console.dir(options);
       console.log("not in !!entry");
       console.log("newMediaPr is " + options.newMediaPR);
+      console.log("mediaOnlyPR if " + options.mediaOnlyPR);
       unpublished = options.newMediaPR == false; // in case newMediaPR is undefined or true we want unpublished to be false
     }
     console.log("unpublished is " + unpublished);
@@ -427,6 +435,7 @@ export default class API {
             },
             timeStamp: new Date().toISOString(),
             newMediaPR: options.newMediaPR || false,
+            mediaOnlyPR: options.mediaOnlyPR || false,
           });
         });
     } else {
