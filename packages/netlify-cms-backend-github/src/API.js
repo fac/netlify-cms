@@ -147,8 +147,7 @@ export default class API {
   }
 
   retrieveMetadata(key) {
-    console.log("retrieving metadata")
-    console.log("key is" + key);
+    console.log("in retrieve metadata")
     const cache = localForage.getItem(`gh.meta.${key}`);
     return cache.then(cached => {
       if (cached && cached.expires > Date.now()) {
@@ -369,6 +368,7 @@ export default class API {
     console.dir(entry);
     console.log("options.slug is " + options.slug);
     const contentKey = (entry && entry.slug) || options.slug;
+    console.log("contentKey is " + contentKey);
     const branchName = this.generateBranchName(contentKey);
     console.log("branchName is " + branchName);
     const metadata = await this.retrieveMetadata(contentKey);
@@ -383,8 +383,10 @@ export default class API {
       console.dir(options);
       console.log("mediaOnlyPR is " + options.mediaOnlyPR);
       console.log("newMediaPR is " + options.newMediaPR);
+      console.log("options.unpublished is " + options.unpublished);
       unpublished = options.unpublished || (metadata && metadata.mediaOnlyPR) || false;
       options.mediaOnlyPR = false;
+      console.log("options.mediaOnlyPR is now " + options.mediaOnlyPR);
     } else {
       console.log("in !! entry");
       console.log("entry is: ");
@@ -461,7 +463,8 @@ export default class API {
             files: uniq(files),
           };
           const newMediaPR = options.newMediaPR || false;
-          const updatedMetadata = { ...metadata, pr, title, description, objects, newMediaPR };
+          const mediaOnlyPR = options.mediaOnlyPR || false;
+          const updatedMetadata = { ...metadata, pr, title, description, objects, newMediaPR, mediaOnlyPR };
 
           /**
            * If an asset store is in use, assets are always accessible, so we
