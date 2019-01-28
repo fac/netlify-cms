@@ -138,10 +138,6 @@ const SaveButton = styled(ToolbarButton)`
   ${buttons.lightBlue};
 `;
 
-const PreviewButton = styled(ToolbarButton)`
-  ${buttons.lightBlue};
-`;
-
 const WebsitePreviewLink = styled.a`
   ${styles.buttonMargin};
   ${buttons.button};
