@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.4](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/compare/netlify-cms-backend-git-gateway@2.2.3...netlify-cms-backend-git-gateway@2.2.4) (2019-03-11)
+
+
+### Bug Fixes
+
+* **backend-github:** make non-Large Media previews work with Git Gateway+Github ([#2151](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2151)) ([63582dc](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/63582dc))
+
+
+
+
+
+## [2.2.3](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/compare/netlify-cms-backend-git-gateway@2.2.2...netlify-cms-backend-git-gateway@2.2.3) (2019-03-08)
+
+**Note:** Version bump only for package netlify-cms-backend-git-gateway
+
+
+
+
+
+## [2.2.2](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/compare/netlify-cms-backend-git-gateway@2.2.1...netlify-cms-backend-git-gateway@2.2.2) (2019-02-28)
+
+
+### Bug Fixes
+
+* **git-gateway:** fix previews for GitHub images not in Large Media ([#2125](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2125)) ([d17f896](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/d17f896))
+
+
+
+
+
+## [2.2.1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/compare/netlify-cms-backend-git-gateway@2.2.0...netlify-cms-backend-git-gateway@2.2.1) (2019-02-26)
+
+**Note:** Version bump only for package netlify-cms-backend-git-gateway
+
+
+
+
+
+# [2.2.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/compare/netlify-cms-backend-git-gateway@2.1.2...netlify-cms-backend-git-gateway@2.2.0) (2019-02-08)
+
+
+### Features
+
+* **workflow:** add deploy preview links ([#2028](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/issues/2028)) ([15d221d](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/commit/15d221d))
+
+
+
+
+
 ## [2.1.2](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-backend-git-gateway/compare/netlify-cms-backend-git-gateway@2.1.1...netlify-cms-backend-git-gateway@2.1.2) (2018-12-11)
 
 

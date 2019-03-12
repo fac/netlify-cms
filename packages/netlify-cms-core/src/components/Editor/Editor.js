@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { Loader } from 'netlify-cms-ui-default';
 import { translate } from 'react-polyglot';
+import { debounce } from 'lodash';
 import history from 'Routing/history';
 import { logoutUser } from 'Actions/auth';
 import {
@@ -16,14 +17,19 @@ import {
   changeDraftFieldValidation,
   persistEntry,
   deleteEntry,
+  persistLocalBackup,
+  loadLocalBackup,
+  retrieveLocalBackup,
+  deleteLocalBackup,
 } from 'Actions/entries';
 import {
   updateUnpublishedEntryStatus,
   publishUnpublishedEntry,
   deleteUnpublishedEntry,
 } from 'Actions/editorialWorkflow';
+import { loadDeployPreview } from 'Actions/deploys';
 import { deserializeValues } from 'Lib/serializeEntryValues';
-import { selectEntry, selectUnpublishedEntry, getAsset } from 'Reducers';
+import { selectEntry, selectUnpublishedEntry, selectDeployPreview, getAsset } from 'Reducers';
 import { selectFields } from 'Reducers/collections';
 import { status } from 'Constants/publishModes';
 import { EDITORIAL_WORKFLOW } from 'Constants/publishModes';
@@ -64,6 +70,8 @@ class Editor extends React.Component {
     deleteUnpublishedEntry: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     loadEntries: PropTypes.func.isRequired,
+    deployPreview: ImmutablePropTypes.map,
+    loadDeployPreview: PropTypes.func.isRequired,
     currentStatus: PropTypes.string,
     user: ImmutablePropTypes.map.isRequired,
     location: PropTypes.shape({
@@ -81,9 +89,12 @@ class Editor extends React.Component {
       loadEntry,
       createEmptyDraft,
       loadEntries,
+      retrieveLocalBackup,
       collectionEntriesLoaded,
       t,
     } = this.props;
+
+    retrieveLocalBackup(collection, slug);
 
     if (newEntry) {
       createEmptyDraft(collection);
@@ -123,6 +134,7 @@ class Editor extends React.Component {
         return leaveMessage;
       }
     };
+
     const unblock = history.block(navigationBlocker);
 
     /**
@@ -139,6 +151,9 @@ class Editor extends React.Component {
       ) {
         return;
       }
+
+      this.deleteBackup();
+
       unblock();
       this.unlisten();
     });
@@ -160,7 +175,21 @@ class Editor extends React.Component {
       this.props.loadEntry(this.props.collection, newSlug);
     }
 
+    if (!prevProps.localBackup && this.props.localBackup) {
+      const confirmLoadBackup = window.confirm(this.props.t('editor.editor.confirmLoadBackup'));
+      if (confirmLoadBackup) {
+        this.props.loadLocalBackup();
+      } else {
+        this.deleteBackup();
+      }
+    }
+
+    if (this.props.hasChanged) {
+      this.createBackup(this.props.entryDraft.get('entry'), this.props.collection);
+    }
+
     if (prevProps.entry === this.props.entry) return;
+
     const { entry, newEntry, fields, collection } = this.props;
 
     if (entry && !entry.get('isFetching') && !entry.get('error')) {
@@ -178,9 +207,14 @@ class Editor extends React.Component {
   }
 
   componentWillUnmount() {
+    this.createBackup.flush();
     this.props.discardDraft();
     window.removeEventListener('beforeunload', this.exitBlocker);
   }
+
+  createBackup = debounce(function(entry, collection) {
+    this.props.persistLocalBackup(entry, collection);
+  }, 2000);
 
   createDraft = (entry, metadata) => {
     if (entry) this.props.createDraftFromEntry(entry, metadata);
@@ -203,6 +237,12 @@ class Editor extends React.Component {
     updateUnpublishedEntryStatus(collection.get('name'), slug, currentStatus, newStatus);
   };
 
+  deleteBackup() {
+    const { deleteLocalBackup, collection, slug } = this.props;
+    this.createBackup.cancel();
+    deleteLocalBackup(collection, slug);
+  }
+
   handlePersistEntry = async (opts = {}) => {
     const { createNew = false } = opts;
     const {
@@ -216,6 +256,8 @@ class Editor extends React.Component {
     } = this.props;
 
     await persistEntry(collection);
+
+    this.deleteBackup(collection, slug);
 
     if (createNew) {
       navigateToNewEntry(collection.get('name'));
@@ -240,6 +282,8 @@ class Editor extends React.Component {
 
     await publishUnpublishedEntry(collection.get('name'), slug);
 
+    this.deleteBackup();
+
     if (createNew) {
       navigateToNewEntry(collection.get('name'));
     }
@@ -260,6 +304,7 @@ class Editor extends React.Component {
 
     setTimeout(async () => {
       await deleteEntry(collection, slug);
+      this.deleteBackup();
       return navigateToCollection(collection.get('name'));
     }, 0);
   };
@@ -283,6 +328,8 @@ class Editor extends React.Component {
       return;
     }
     await deleteUnpublishedEntry(collection.get('name'), slug);
+
+    this.deleteBackup();
 
     if (isModification) {
       loadEntry(collection, slug);
@@ -309,8 +356,13 @@ class Editor extends React.Component {
       isModification,
       currentStatus,
       logoutUser,
+      deployPreview,
+      loadDeployPreview,
+      slug,
       t,
     } = this.props;
+
+    const isPublished = !newEntry && !unpublishedEntry;
 
     if (entry && entry.get('error')) {
       return (
@@ -351,6 +403,8 @@ class Editor extends React.Component {
         isModification={isModification}
         currentStatus={currentStatus}
         onLogoutClick={logoutUser}
+        deployPreview={deployPreview}
+        loadDeployPreview={opts => loadDeployPreview(collection, slug, entry, isPublished, opts)}
       />
     );
   }
@@ -373,6 +427,8 @@ function mapStateToProps(state, ownProps) {
   const collectionEntriesLoaded = !!entries.getIn(['pages', collectionName]);
   const unpublishedEntry = selectUnpublishedEntry(state, collectionName, slug);
   const currentStatus = unpublishedEntry && unpublishedEntry.getIn(['metaData', 'status']);
+  const deployPreview = selectDeployPreview(state, collectionName, slug);
+  const localBackup = entryDraft.get('localBackup');
   return {
     collection,
     collections,
@@ -389,6 +445,8 @@ function mapStateToProps(state, ownProps) {
     isModification,
     collectionEntriesLoaded,
     currentStatus,
+    deployPreview,
+    localBackup,
   };
 }
 
@@ -399,6 +457,11 @@ export default connect(
     changeDraftFieldValidation,
     loadEntry,
     loadEntries,
+    loadDeployPreview,
+    loadLocalBackup,
+    retrieveLocalBackup,
+    persistLocalBackup,
+    deleteLocalBackup,
     createDraftFromEntry,
     createEmptyDraft,
     discardDraft,

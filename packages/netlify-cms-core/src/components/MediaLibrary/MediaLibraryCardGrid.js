@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import Waypoint from 'react-waypoint';
 import MediaLibraryCard from './MediaLibraryCard';
+import { Map } from 'immutable';
 import { colors } from 'netlify-cms-ui-default';
 
 const CardGridContainer = styled.div`
@@ -33,7 +34,8 @@ const MediaLibraryCardGrid = ({
   cardWidth,
   cardMargin,
   isPrivate,
-  getDisplayURL,
+  displayURLs,
+  loadDisplayURL,
 }) => (
   <CardGridContainer innerRef={setScrollContainerRef}>
     <CardGrid>
@@ -46,7 +48,9 @@ const MediaLibraryCardGrid = ({
           width={cardWidth}
           margin={cardMargin}
           isPrivate={isPrivate}
-          displayURL={file.isViewableImage && getDisplayURL(file)}
+          displayURL={displayURLs.get(file.id, file.url ? Map({ url: file.url }) : Map())}
+          loadDisplayURL={() => loadDisplayURL(file)}
+          type={file.type}
         />
       ))}
       {!canLoadMore ? null : <Waypoint onEnter={onLoadMore} />}
@@ -61,10 +65,13 @@ MediaLibraryCardGrid.propTypes = {
   setScrollContainerRef: PropTypes.func.isRequired,
   mediaItems: PropTypes.arrayOf(
     PropTypes.shape({
+      displayURL: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+      id: PropTypes.string.isRequired,
       key: PropTypes.string.isRequired,
-      isViewableImage: PropTypes.bool,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
       url: PropTypes.string,
-      name: PropTypes.string,
+      urlIsPublicPath: PropTypes.bool,
     }),
   ).isRequired,
   isSelectedFile: PropTypes.func.isRequired,
@@ -75,7 +82,7 @@ MediaLibraryCardGrid.propTypes = {
   paginatingMessage: PropTypes.string,
   cardWidth: PropTypes.string.isRequired,
   cardMargin: PropTypes.string.isRequired,
-  getDisplayURL: PropTypes.func.isRequired,
+  loadDisplayURL: PropTypes.func.isRequired,
   isPrivate: PropTypes.bool,
 };
 

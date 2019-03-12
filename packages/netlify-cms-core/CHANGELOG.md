@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.7.0...netlify-cms-core@2.8.0) (2019-03-08)
+
+
+### Bug Fixes
+
+* **config:** strip leading slashes from collection location config ([#2131](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2131)) ([efa650c](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/efa650c))
+* **core:** allow updates through error boundary ([#2136](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2136)) ([3d98b72](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/3d98b72))
+* **core:** number type slug template ([#2119](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2119)) ([7577443](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/7577443))
+
+
+### Features
+
+* **core:** recover entry after unexpected quit ([#2129](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2129)) ([686504a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/686504a))
+
+
+
+
+
+# [2.7.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.6.0...netlify-cms-core@2.7.0) (2019-02-26)
+
+
+### Bug Fixes
+
+* **widget-relation:** fix initial relation widget preview ([#2090](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2090)) ([aff9c1a](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/aff9c1a))
+
+
+### Features
+
+* **netlify-cms-widget-relation:** use react-select and add support for multiple entries ([#1936](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/1936)) ([518f6fb](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/518f6fb))
+
+
+
+
+
+# [2.6.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.5.1...netlify-cms-core@2.6.0) (2019-02-12)
+
+
+### Features
+
+* **core:** allow field name to override slug placeholders ([#2087](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2087)) ([ff8dfac](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/ff8dfac))
+
+
+
+
+
+## [2.5.1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.5.0...netlify-cms-core@2.5.1) (2019-02-09)
+
+**Note:** Version bump only for package netlify-cms-core
+
+
+
+
+
+# [2.5.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.4.1...netlify-cms-core@2.5.0) (2019-02-08)
+
+
+### Bug Fixes
+
+* **netlify-cms-core:** allow arrays for frontmatter_delimiter in config ([#1997](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/1997)) ([ebba686](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/ebba686))
+* **netlify-cms-core:** fix fields metadata for objects and lists ([#2011](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2011)) ([2d1d1c1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/2d1d1c1))
+* **netlify-cms-core:** relation widget value swap ([#2018](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2018)) ([11305d3](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/11305d3))
+* **netlify-cms-core:** validate nested fields ([#1873](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/1873)) ([627e600](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/627e600))
+
+
+### Features
+
+* **config:** allow config.yml file load to be skipped ([#2053](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2053)) ([14f94a0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/14f94a0))
+* **netlify-cms-core:** expose loadEntry action to Widgets ([#2010](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2010)) ([5d8aef1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/5d8aef1))
+* **netlify-cms-widget-map:** add map widget ([#2051](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2051)) ([18f34d2](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/18f34d2))
+* **widget-number:** add range validation ([#2049](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2049)) ([dc44cac](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/dc44cac))
+* **workflow:** add deploy preview links ([#2028](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2028)) ([15d221d](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/15d221d))
+
+
+### Performance Improvements
+
+* **netlify-cms-core:** add basic route code-splitting ([#1889](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/1889)) ([9aa5645](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/9aa5645))
+
+
+
+
+
 ## [2.4.1](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.4.0...netlify-cms-core@2.4.1) (2019-01-10)
 
 

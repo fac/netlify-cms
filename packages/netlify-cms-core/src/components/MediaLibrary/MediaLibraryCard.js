@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import styled from 'react-emotion';
 import { colors, borders, lengths } from 'netlify-cms-ui-default';
 
@@ -26,7 +27,14 @@ const CardImage = styled.img`
   border-radius: 2px 2px 0 0;
 `;
 
-const CardImagePlaceholder = CardImage.withComponent(`div`);
+const CardFileIcon = styled.div`
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 2px 2px 0 0;
+  padding: 1em;
+  font-size: 3em;
+`;
 
 const CardText = styled.p`
   color: ${colors.text};
@@ -36,28 +44,41 @@ const CardText = styled.p`
   line-height: 1.3 !important;
 `;
 
-const MediaLibraryCard = ({ isSelected, displayURL, text, onClick, width, margin, isPrivate }) => (
-  <Card
-    isSelected={isSelected}
-    onClick={onClick}
-    width={width}
-    margin={margin}
-    tabIndex="-1"
-    isPrivate={isPrivate}
-  >
-    <div>{displayURL ? <CardImage src={displayURL} /> : <CardImagePlaceholder />}</div>
-    <CardText>{text}</CardText>
-  </Card>
-);
+class MediaLibraryCard extends React.Component {
+  render() {
+    const { isSelected, displayURL, text, onClick, width, margin, isPrivate, type } = this.props;
+    const url = displayURL.get('url');
+    return (
+      <Card
+        isSelected={isSelected}
+        onClick={onClick}
+        width={width}
+        margin={margin}
+        tabIndex="-1"
+        isPrivate={isPrivate}
+      >
+        <div>{url ? <CardImage src={url} /> : <CardFileIcon>{type}</CardFileIcon>}</div>
+        <CardText>{text}</CardText>
+      </Card>
+    );
+  }
+  componentDidMount() {
+    const { displayURL, loadDisplayURL } = this.props;
+    if (!displayURL.get('url')) {
+      loadDisplayURL();
+    }
+  }
+}
 
 MediaLibraryCard.propTypes = {
   isSelected: PropTypes.bool,
-  displayURL: PropTypes.string,
+  displayURL: ImmutablePropTypes.map.isRequired,
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   margin: PropTypes.string.isRequired,
   isPrivate: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 export default MediaLibraryCard;
