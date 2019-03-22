@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.9.0-beta.0...netlify-cms-core@2.9.0) (2019-03-22)
+
+**Note:** Version bump only for package netlify-cms-core
+
+
+
+
+
+# [2.9.0-beta.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.8.1-beta.0...netlify-cms-core@2.9.0-beta.0) (2019-03-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-polyglot to ^0.4.0 ([#2170](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2170)) ([d5248c8](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/d5248c8))
+* fix umd builds ([#2214](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2214)) ([e04f6be](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/e04f6be))
+
+
+### Features
+
+* provide usable UMD builds for all packages ([#2141](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2141)) ([82cc794](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/82cc794))
+
+
+
+
+
+## [2.8.1-beta.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.8.1-alpha.0...netlify-cms-core@2.8.1-beta.0) (2019-03-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-scroll-sync to ^0.7.0 ([#2171](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2171)) ([12cc5a9](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/12cc5a9))
+* **deps:** update dependency react-sortable-hoc to v1 ([#2198](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2198)) ([b5180e9](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/b5180e9))
+
+
+### Features
+
+* upgrade to Emotion 10 ([#2166](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/issues/2166)) ([ccef446](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/commit/ccef446))
+
+
+
+
+
+## [2.8.1-alpha.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.8.0...netlify-cms-core@2.8.1-alpha.0) (2019-03-14)
+
+**Note:** Version bump only for package netlify-cms-core
+
+
+
+
+
 # [2.8.0](https://github.com/netlify/netlify-cms/tree/master/packages/netlify-cms-core/compare/netlify-cms-core@2.7.0...netlify-cms-core@2.8.0) (2019-03-08)
 
 
