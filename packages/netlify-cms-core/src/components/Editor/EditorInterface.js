@@ -146,6 +146,18 @@ class EditorInterface extends Component {
     localStorage.setItem(SCROLL_SYNC_ENABLED, newScrollSyncEnabled);
   };
 
+  previewLink = (entry) => {
+    let previewUrl
+    if (!!entry.get('metaData') && !!entry.getIn(['metaData', 'pr'])) {
+      let branch = entry.getIn(['metaData', 'branch']).substring(0,51).replace("/", "--");
+      let prNumber = entry.getIn(['metaData', 'pr', 'number']);
+      previewUrl = "http://" + prNumber + "---" + branch + ".preview.www.fre.ag";
+    } else {
+      previewUrl = "http://preview.www.fre.ag";
+    };
+    return previewUrl;
+  };
+
   render() {
     const {
       collection,
@@ -224,6 +236,7 @@ class EditorInterface extends Component {
           isPersisting={entry.get('isPersisting')}
           isPublishing={entry.get('isPublishing')}
           isUpdatingStatus={entry.get('isUpdatingStatus')}
+          previewLink={this.previewLink(entry)}
           isDeleting={entry.get('isDeleting')}
           onPersist={this.handleOnPersist}
           onPersistAndNew={() => this.handleOnPersist({ createNew: true })}

@@ -141,6 +141,14 @@ const SaveButton = styled(ToolbarButton)`
   ${buttons.lightBlue};
 `;
 
+const WebsitePreviewLink = styled.a`
+  ${styles.buttonMargin};
+  ${buttons.button};
+  ${buttons.default};
+  color: ${colorsRaw.teal};
+  background-color: ${colorsRaw.tealLight};
+`;
+
 const StatusPublished = styled.div`
   ${styles.buttonMargin};
   border: 1px solid ${colors.textFieldBorder};
@@ -205,6 +213,7 @@ class EditorToolbar extends React.Component {
     isPublishing: PropTypes.bool,
     isUpdatingStatus: PropTypes.bool,
     isDeleting: PropTypes.bool,
+    previewLink: PropTypes.string,
     onPersist: PropTypes.func.isRequired,
     onPersistAndNew: PropTypes.func.isRequired,
     showDelete: PropTypes.bool.isRequired,
@@ -374,6 +383,8 @@ class EditorToolbar extends React.Component {
       collection,
       isUpdatingStatus,
       isPublishing,
+      previewLink,
+      hasUnpublishedChanges,
       onChangeStatus,
       onPublish,
       onPublishAndNew,
@@ -384,6 +395,9 @@ class EditorToolbar extends React.Component {
     if (currentStatus) {
       return (
         <>
+          {hasUnpublishedChanges ? (
+            <WebsitePreviewLink href={previewLink}>Website Preview</WebsitePreviewLink>
+          ) : null}
           {this.renderDeployPreviewControls(t('editor.editorToolbar.deployPreviewButtonLabel'))}
           <ToolbarDropdown
             dropdownTopOverlap="40px"
